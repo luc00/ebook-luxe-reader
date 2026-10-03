@@ -1,10 +1,3 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# Technical Decisions
+- Keep the ebook catalogue static and bundled with asset-pointer URLs so reading and downloads require no account or database.
+- Use browser-native PDF viewing in an accessible dialog to support desktop, tablet, and phone without a separate reader dependency.
