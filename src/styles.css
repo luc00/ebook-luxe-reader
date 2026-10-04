@@ -180,6 +180,12 @@
 }
 [data-lovable-badge],
 [class*="lovable"],
-iframe[src*="lovable"] {
+[id*="lovable"],
+iframe[src*="lovable"],
+a[href*="lovable"],
+body > div[style*="fixed"] {
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
