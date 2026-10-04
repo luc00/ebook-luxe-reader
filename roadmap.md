@@ -2,4 +2,4 @@
 - [x] Extract ebook titles, authors, and original covers
 - [x] Convert all uploaded EPUB files to downloadable PDFs
 - [x] Build the catalogue and online reader
-- [ ] Verify desktop and mobile presentation
+- [x] Verify desktop and mobile presentation, page turning, and PDF download
