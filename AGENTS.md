@@ -1,3 +1,3 @@
 # Technical Decisions
 - Keep the ebook catalogue static and bundled with asset-pointer URLs so reading and downloads require no account or database.
-- Use browser-native PDF viewing in an accessible dialog to support desktop, tablet, and phone without a separate reader dependency.
+- Render PDF pages with PDF.js in an accessible dialog because embedded browser PDF viewing can appear blank in the preview and on phones.
