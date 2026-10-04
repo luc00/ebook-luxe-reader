@@ -97,7 +97,7 @@ export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }
         canvas.height = Math.floor(viewport.height * pixelRatio);
         canvas.style.width = `${viewport.width}px`;
         canvas.style.height = `${viewport.height}px`;
-        renderTask = pdfPage.render({ canvas, canvasContext: context, viewport, transform: [pixelRatio, 0, 0, pixelRatio, 0, 0] });
+        renderTask = pdfPage.render({ canvasContext: context, viewport, transform: [pixelRatio, 0, 0, pixelRatio, 0, 0] });
         await renderTask.promise;
         pdfPage.cleanup();
       } catch (reason) {
