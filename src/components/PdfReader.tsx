@@ -48,15 +48,16 @@ export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }
         const pdfjs = await import("pdfjs-dist");
         const worker = await import("pdfjs-dist/build/pdf.worker.min.mjs?url");
         pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
-        task = pdfjs.getDocument(book.pdf);
+        task = pdfjs.getDocument({ url: book.pdf });
         const pdf = await task.promise;
         if (active) {
           setDocument(pdf);
           setTotal(pdf.numPages);
         } else {
-          await pdf.destroy();
+          await task.destroy();
         }
-      } catch {
+      } catch (reason) {
+        console.error("Unable to open PDF", reason);
         if (active) setError(true);
       }
     })();
@@ -89,6 +90,7 @@ export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }
         await renderTask.promise;
         pdfPage.cleanup();
       } catch (reason) {
+        if (active) console.error("Unable to render PDF page", reason);
         if (active && !(reason instanceof Error && reason.name === "RenderingCancelledException")) setError(true);
       }
     })();
