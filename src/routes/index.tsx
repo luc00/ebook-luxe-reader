@@ -167,7 +167,7 @@ function Index() {
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-5 py-8 text-center sm:flex-row sm:px-10 sm:text-left">
           <span className="font-display text-sm font-semibold">Lucasebooks</span>
           <p className="text-xs text-muted-foreground">
-            Biblioteca gratuita · 10 titoli · lettura e download senza registrazione
+            Biblioteca gratuita · titoli aggiornati · lettura e download senza registrazione
           </p>
         </div>
       </footer>
