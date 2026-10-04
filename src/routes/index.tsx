@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Download, Monitor, Search, Smartphone, Tablet, X } from "lucide-react";
+import { Download, Monitor, Search, Smartphone, Tablet } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { PdfReader } from "@/components/PdfReader";
 import { books, type Book } from "@/lib/books";
 
 export const Route = createFileRoute("/")({
@@ -108,7 +109,7 @@ function Index() {
         </div>
       </footer>
 
-      {reading ? <Reader book={reading} onClose={() => setReading(null)} /> : null}
+      {reading ? <PdfReader book={reading} onClose={() => setReading(null)} /> : null}
     </div>
   );
 }
@@ -142,13 +143,3 @@ function BookCard({ book, onRead }: { book: Book; onRead: (book: Book) => void }
   </article>;
 }
 
-function Reader({ book, onClose }: { book: Book; onClose: () => void }) {
-  return <div className="fixed inset-0 z-50 flex flex-col bg-primary text-primary-foreground" role="dialog" aria-modal="true" aria-label={`Lettura di ${book.title}`}>
-    <div className="flex h-16 items-center gap-3 border-b border-primary-foreground/15 px-4 sm:px-6">
-      <div className="min-w-0 flex-1"><p className="truncate font-display font-semibold">{book.title}</p><p className="truncate text-xs text-primary-foreground/60">{book.author}</p></div>
-      <Button asChild variant="ghost" size="small"><a href={book.pdf} download={`${book.slug}.pdf`}><Download className="size-4" /><span className="hidden sm:inline">Scarica</span></a></Button>
-      <Button variant="icon" size="icon" onClick={onClose} aria-label="Chiudi lettore"><X className="size-5" /></Button>
-    </div>
-    <iframe src={`${book.pdf}#view=FitH`} title={`Lettore PDF: ${book.title}`} className="min-h-0 flex-1 bg-card" />
-  </div>;
-}
