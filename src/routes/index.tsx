@@ -61,7 +61,7 @@ function Index() {
           <p className="mb-3 text-xs font-semibold uppercase text-accent">Biblioteca digitale gratuita</p>
           <h1 className="font-display text-6xl font-semibold leading-none sm:text-7xl lg:text-8xl">Lucasebooks</h1>
           <p className="mt-5 max-w-[48ch] text-pretty text-lg text-muted-foreground">
-            Dieci storie da portare ovunque. Leggi ogni titolo qui sul sito oppure scarica il PDF su computer, tablet,
+            Storie da portare ovunque. Leggi ogni titolo qui sul sito oppure scarica il PDF su computer, tablet,
             telefono e Kindle.
           </p>
         </div>
