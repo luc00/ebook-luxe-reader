@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import type { Book } from "@/lib/books";
+import { CONSENT_EVENT, readPreferences } from "@/lib/cookie-preferences";
 
 export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,7 +13,15 @@ export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }
   const [zoom, setZoom] = useState(1);
   const [width, setWidth] = useState(0);
   const [error, setError] = useState(false);
+  const [saveReading, setSaveReading] = useState(false);
   const [document, setDocument] = useState<import("pdfjs-dist").PDFDocumentProxy | null>(null);
+
+  useEffect(() => {
+    const update = () => setSaveReading(readPreferences()?.reading === true);
+    update();
+    window.addEventListener(CONSENT_EVENT, update);
+    return () => window.removeEventListener(CONSENT_EVENT, update);
+  }, []);
 
   useEffect(() => {
     const oldOverflow = window.document.body.style.overflow;
@@ -53,8 +62,12 @@ export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }
         if (active) {
           setDocument(pdf);
           setTotal(pdf.numPages);
-          const saved = Number(window.localStorage.getItem(`ebooks:page:${book.slug}`));
-          if (saved >= 1 && saved <= pdf.numPages) setPage(Math.floor(saved));
+          if (readPreferences()?.reading) {
+            try {
+              const saved = Number(window.localStorage.getItem(`ebooks:page:${book.slug}`));
+              if (saved >= 1 && saved <= pdf.numPages) setPage(Math.floor(saved));
+            } catch { /* Reading remains available when storage is blocked. */ }
+          }
         } else {
           await task.destroy();
         }
@@ -70,13 +83,13 @@ export function PdfReader({ book, onClose }: { book: Book; onClose: () => void }
   }, [book.pdf, book.slug]);
 
   useEffect(() => {
-    if (!document) return;
+    if (!document || !saveReading || !readPreferences()?.reading) return;
     try {
       window.localStorage.setItem(`ebooks:page:${book.slug}`, String(page));
     } catch {
       /* storage unavailable */
     }
-  }, [book.slug, document, page]);
+  }, [book.slug, document, page, saveReading]);
 
   useEffect(() => {
     if (!document || !width || !canvasRef.current) return;

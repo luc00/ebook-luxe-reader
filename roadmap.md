@@ -3,3 +3,7 @@
 - [x] Convert all uploaded EPUB files to downloadable PDFs
 - [x] Build the catalogue and online reader
 - [x] Verify desktop and mobile presentation, page turning, and PDF download
+- [x] Add cookie pop-up, editable preferences and consent-gated bookmarks
+- [x] Add provisional privacy and cookie policies
+- [ ] Verify consent choices and policy navigation
+- [ ] Complete legal owner/contact details and confirm hosting data practices (awaiting owner)
