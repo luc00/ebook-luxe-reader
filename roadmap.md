@@ -5,5 +5,6 @@
 - [x] Verify desktop and mobile presentation, page turning, and PDF download
 - [x] Add cookie pop-up, editable preferences and consent-gated bookmarks
 - [x] Add provisional privacy and cookie policies
-- [ ] Verify consent choices and policy navigation
+- [x] Verify consent choices and policy navigation
+- [x] Apply the uploaded artwork as the site favicon and Apple touch icon
 - [ ] Complete legal owner/contact details and confirm hosting data practices (awaiting owner)

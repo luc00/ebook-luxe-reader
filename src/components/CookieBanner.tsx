@@ -13,7 +13,11 @@ export function CookieBanner() {
   useEffect(() => {
     const saved = readPreferences();
     setReading(saved?.reading ?? false);
-    setOpen(!saved);
+    // Open after hydration: Radix marks the rest of the page aria-hidden when a
+    // modal opens, which would mismatch the server-rendered HTML if it happened
+    // during hydration.
+    const timer = window.setTimeout(() => setOpen(!saved), 350);
+    return () => window.clearTimeout(timer);
   }, []);
   function choose(value: boolean) {
     if (!savePreferences(value)) { setError(true); return; }
