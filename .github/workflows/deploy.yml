@@ -29,8 +29,14 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Add 404 fallback for SPA routing
-        run: cp .output/public/index.html .output/public/404.html
+      - name: Ensure public directory exists
+        run: |
+          mkdir -p .output/public
+          if [ -f .output/public/index.html ]; then
+            cp .output/public/index.html .output/public/404.html
+          else
+            echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Redirecting...</title></head><body><script>window.location.href = '/ebook-luxe-reader/';</script></body></html>" > .output/public/404.html
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
