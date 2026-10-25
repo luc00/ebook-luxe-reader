@@ -29,14 +29,18 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Ensure public directory exists
+      - name: Fix output structure for GitHub Pages
         run: |
-          mkdir -p .output/public
-          if [ -f .output/public/index.html ]; then
-            cp .output/public/index.html .output/public/404.html
-          else
-            echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Redirecting...</title></head><body><script>window.location.href = '/ebook-luxe-reader/';</script></body></html>" > .output/public/404.html
+          # Se Nitro ha creato una sottocartella con il nome del base path, spostiamo i file in .output/public
+          if [ -d ".output/public/ebook-luxe-reader" ]; then
+            cp -r .output/public/ebook-luxe-reader/* .output/public/
+            rm -rf .output/public/ebook-luxe-reader
           fi
+          # Assicuriamoci che esista un index.html, altrimenti lo creiamo di fallback
+          if [ ! -f ".output/public/index.html" ]; then
+            echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Ebook Luxe Reader</title></head><body><script>window.location.href = '/ebook-luxe-reader/';</script></body></html>" > .output/public/index.html
+          fi
+          cp .output/public/index.html .output/public/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
